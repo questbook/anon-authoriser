@@ -41,6 +41,38 @@ describe("Anon Authoriser Tests", () => {
 		}
 	})
 
+	it('should fail to authorise a signature from an invalid key', async() => {
+		const contract = await deployContract()
+		const { authId } = await generateAnonAuthorisation(contract)
+		const senderAddress = await contract.signer.getAddress()
+		// generate a new private key and sign with that
+		// this should fail authentication
+		const { privateKey } = generateKeyPairAndAddress()
+		const inp = generateInputForAuthorisation(senderAddress, privateKey)
+
+		try {
+			await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
+			throw new Error("should have failed")
+		} catch(error: any) {
+			expect(error.message).to.include('Signature mismatch')
+		}
+	})
+
+	it('should handle multiple authorisations concurrently', async() => {
+		const contract = await deployContract()
+
+		// authorise from new addresses
+		const [, signer2, signer3, signer4] = await ethers.getSigners()
+		for(const signer of [signer2, signer3, signer4]) {
+			const { privateKey, authId } = await generateAnonAuthorisation(contract)
+			const senderAddress = await signer.getAddress()
+
+			const inp = generateInputForAuthorisation(senderAddress, privateKey)
+			const contractInner = contract.connect(signer)
+			await contractInner.anonAuthorise(authId, inp.v, inp.r, inp.s)
+		}
+	})
+
 	async function deployContract() {
 		const Factory = await ethers.getContractFactory('AnonAuthoriser') as AnonAuthoriser__factory
 		const contract = await Factory.deploy()
