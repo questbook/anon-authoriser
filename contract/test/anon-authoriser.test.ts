@@ -1,9 +1,7 @@
 import '@nomiclabs/hardhat-ethers'
-import * as curve from 'secp256k1'
-import { randomBytes } from 'crypto'
+import makeAnonAuthoriserClient, { generateKeyPairAndAddress } from '@questbook/anon-authoriser-js'
 import { ethers } from 'hardhat'
-import type { AnonAuthoriser, AnonAuthoriser__factory } from '../src/types'
-import { keccak256 } from 'ethers/lib/utils'
+import type { AnonAuthoriser__factory } from '../src/types'
 import { expect } from 'chai'
 
 describe("Anon Authoriser Tests", () => {
@@ -14,27 +12,26 @@ describe("Anon Authoriser Tests", () => {
 	// 4. check that authorisation was successful
 	it("should authenticate a user successfully", async() => {
 		let contract = await deployContract()
-		const { privateKey, authId } = await generateAnonAuthorisation(contract)
-
+		const client = makeAnonAuthoriserClient(contract)
+		const result =  await client.generateAnonAuthorisation()
+		expect(result.authId).to.be.greaterThan(0)
+		expect(result.privateKey).to.be.instanceof(Buffer)
 		// authorise from new address
 		const [, signer2] = await ethers.getSigners()
-		const senderAddress = await signer2.getAddress()
 
-		const inp = generateInputForAuthorisation(senderAddress, privateKey)
-		contract = contract.connect(signer2)
-		await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
-	});
+		const client2 = makeAnonAuthoriserClient(contract.connect(signer2))
+		await client2.anonAuthorise(result)
+	})
 
 	it("fail to authenticate after key has been used", async() => {
 		const contract = await deployContract()
-		const { privateKey, authId } = await generateAnonAuthorisation(contract)
-		const senderAddress = await contract.signer.getAddress()
-
-		const inp = generateInputForAuthorisation(senderAddress, privateKey)
-		await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
+		
+		const client = makeAnonAuthoriserClient(contract)
+		const result = await client.generateAnonAuthorisation()
+		await client.anonAuthorise(result)
 
 		try {
-			await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
+			await client.anonAuthorise(result)
 			throw new Error("should have failed")
 		} catch(error: any) {
 			expect(error.message).to.include('No such pending authorisation')
@@ -43,15 +40,15 @@ describe("Anon Authoriser Tests", () => {
 
 	it('should fail to authorise a signature from an invalid key', async() => {
 		const contract = await deployContract()
-		const { authId } = await generateAnonAuthorisation(contract)
-		const senderAddress = await contract.signer.getAddress()
+
+		const client = makeAnonAuthoriserClient(contract)
+		const result = await client.generateAnonAuthorisation()
 		// generate a new private key and sign with that
 		// this should fail authentication
-		const { privateKey } = generateKeyPairAndAddress()
-		const inp = generateInputForAuthorisation(senderAddress, privateKey)
+		result.privateKey = generateKeyPairAndAddress().privateKey
 
 		try {
-			await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
+			await client.anonAuthorise(result)
 			throw new Error("should have failed")
 		} catch(error: any) {
 			expect(error.message).to.include('Signature mismatch')
@@ -60,16 +57,15 @@ describe("Anon Authoriser Tests", () => {
 
 	it('should handle multiple authorisations concurrently', async() => {
 		const contract = await deployContract()
+		const client = makeAnonAuthoriserClient(contract)
 
 		// authorise from new addresses
 		const [, signer2, signer3, signer4] = await ethers.getSigners()
 		for(const signer of [signer2, signer3, signer4]) {
-			const { privateKey, authId } = await generateAnonAuthorisation(contract)
-			const senderAddress = await signer.getAddress()
-
-			const inp = generateInputForAuthorisation(senderAddress, privateKey)
-			const contractInner = contract.connect(signer)
-			await contractInner.anonAuthorise(authId, inp.v, inp.r, inp.s)
+			const authResult = await client.generateAnonAuthorisation()
+			
+			const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
+			await authReqClient.anonAuthorise(authResult)
 		}
 	})
 
@@ -80,45 +76,4 @@ describe("Anon Authoriser Tests", () => {
 
 		return contract
 	}
-
-	async function generateAnonAuthorisation(contract: AnonAuthoriser) {
-		const { privateKey, address } = generateKeyPairAndAddress()
-		const interaction1 = await contract.generateAnonAuthorisation(address)
-		await interaction1.wait()
-
-		return { privateKey, authId: 1 } // TODO: fetch authId
-	}
 })
-
-function prefixedHexToBuffer(address: string) {
-	return Buffer.from(address.slice(2), 'hex')
-}
-
-function generatePrefixedMsg(msg: string | Buffer) {
-	return keccak256(
-		Buffer.concat([
-			Buffer.from(`\x19Ethereum Signed Message:\n32`),
-			prefixedHexToBuffer(keccak256(Buffer.from(msg)))
-		])
-	)
-}
-
-function generateKeyPairAndAddress() {
-	const privateKey = randomBytes(32)
-	const publicKey = curve.publicKeyCreate(privateKey)
-	const address = ethers.utils.computeAddress(publicKey)
-
-	return { privateKey, publicKey, address }
-}
-
-function generateInputForAuthorisation(senderAddress: string, privateKey: Buffer) {
-	const msg = generatePrefixedMsg(prefixedHexToBuffer(senderAddress))
-	const msgBuffer = prefixedHexToBuffer(msg)
-	const { signature, recid } = curve.ecdsaSign(msgBuffer, privateKey)
-
-	return {
-		v: recid,
-		r: signature.slice(0, 32),
-		s: signature.slice(32),
-	}
-}
