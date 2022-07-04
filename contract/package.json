@@ -4,8 +4,9 @@
   "description": "Authorise another wallet to undertake a certain action without knowing their wallet address",
   "main": "index.js",
   "scripts": {
-    "test": "hardhat test",
-    "build": "hardhat compile"
+    "test": "NETWORK=hardhat hardhat test",
+    "build": "NETWORK=hardhat hardhat compile",
+    "deploy": "hardhat deploy:AnonAuthoriser --network $NETWORK"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +28,8 @@
     "ts-node": "^10.8.1",
     "typechain": "^8.1.0",
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1"
   }
 }

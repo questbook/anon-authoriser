@@ -1,0 +1,34 @@
+{
+  "celo-alfajores-testnet": {
+    "id": 44787,
+    "rpcUrl": "https://alfajores-forno.celo-testnet.org"
+  },
+  "harmony-testnet": {
+    "id": 1666700000,
+    "rpcUrl": "https://api.s0.pops.one"
+  },
+  "neon-devnet": {
+    "id": 245022926,
+    "rpcUrl": "http://neon-devnet-rpc.questbook.app:9090/solana"
+  },
+  "optimism-kovan": {
+    "id": 69,
+    "rpcUrl": "https://optimism-kovan.infura.io/v3/{{infura_key}}"
+  },
+  "optimism-mainnet": {
+    "id": 10,
+    "rpcUrl": "https://optimism-mainnet.infura.io/v3/{{infura_key}}"
+  },
+  "polygon-mainnet": {
+    "id": 137,
+    "rpcUrl": "https://polygon-mainnet.infura.io/v3/{{infura_key}}"
+  },
+  "polygon-mumbai": {
+    "id": 80001,
+    "rpcUrl": "https://polygon-mumbai.infura.io/v3/{{infura_key}}"
+  },
+  "rinkeby": {
+    "id": 4,
+    "rpcUrl": "https://rinkeby.infura.io/v3/{{infura_key}}"
+  }
+}
