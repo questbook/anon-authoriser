@@ -25,6 +25,8 @@ contract AnonAuthoriser {
     function generateAnonAuthorisation(address authKeyAddress, uint8 apiFlag) public {
         require(authKeyAddress != address(0), "Invalid public key address");
         require(apiFlag > 0, "API flag must be non-zero");
+        require(pendingAuthorisations[authKeyAddress].apiFlag == 0, "Authorisation already exists");
+
         pendingAuthorisations[authKeyAddress] = PendingAuthorisation(msg.sender, apiFlag);
     }
 
