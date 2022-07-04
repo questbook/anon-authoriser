@@ -6,23 +6,32 @@ import type { AnonAuthoriser } from './types'
 type MinAnonAuthoriser = Pick<AnonAuthoriser, 'anonAuthorise' | 'generateAnonAuthorisation' | 'signer'>
 
 type AnonAuthorisationData = {
+	/** private key that will be used to sign the authorisation request */
 	privateKey: Buffer
+	/** API flag to determine what the authorisation can be used for */
+	apiFlag: number
+	/** address of the user who wants to authorise another user */
+	authoriser: string
 }
 
 const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 
 	return {
-		async generateAnonAuthorisation(): Promise<AnonAuthorisationData> {
+		async generateAnonAuthorisation(apiFlag: number): Promise<AnonAuthorisationData> {
 			const { privateKey, address } = generateKeyPairAndAddress()
-			const interaction1 = await contract.generateAnonAuthorisation(address)
+			const interaction1 = await contract.generateAnonAuthorisation(address, apiFlag)
 			await interaction1.wait()
 	
-			return { privateKey }
+			return {
+				privateKey,
+				authoriser: await contract.signer.getAddress(),
+				apiFlag
+			}
 		},
-		async anonAuthorise({ privateKey }: AnonAuthorisationData) {
+		async anonAuthorise({ privateKey, authoriser, apiFlag }: AnonAuthorisationData) {
 			const senderAddress = await contract.signer.getAddress()
 			const inp = generateInputForAuthorisation(senderAddress, privateKey)
-			await contract.anonAuthorise(inp.v, inp.r, inp.s)
+			await contract.anonAuthorise(authoriser, apiFlag, inp.v, inp.r, inp.s)
 		}
 	}
 }

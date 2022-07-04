@@ -25,8 +25,8 @@ import type {
 
 export interface AnonAuthoriserInterface extends utils.Interface {
   functions: {
-    "anonAuthorise(uint8,bytes32,bytes32)": FunctionFragment;
-    "generateAnonAuthorisation(address)": FunctionFragment;
+    "anonAuthorise(address,uint8,uint8,bytes32,bytes32)": FunctionFragment;
+    "generateAnonAuthorisation(address,uint8)": FunctionFragment;
   };
 
   getFunction(
@@ -36,6 +36,8 @@ export interface AnonAuthoriserInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "anonAuthorise",
     values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
@@ -43,7 +45,7 @@ export interface AnonAuthoriserInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "generateAnonAuthorisation",
-    values: [PromiseOrValue<string>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
 
   decodeFunctionResult(
@@ -86,6 +88,8 @@ export interface AnonAuthoriser extends BaseContract {
 
   functions: {
     anonAuthorise(
+      authoriser: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -94,11 +98,14 @@ export interface AnonAuthoriser extends BaseContract {
 
     generateAnonAuthorisation(
       authKeyAddress: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   anonAuthorise(
+    authoriser: PromiseOrValue<string>,
+    apiFlag: PromiseOrValue<BigNumberish>,
     v: PromiseOrValue<BigNumberish>,
     r: PromiseOrValue<BytesLike>,
     s: PromiseOrValue<BytesLike>,
@@ -107,11 +114,14 @@ export interface AnonAuthoriser extends BaseContract {
 
   generateAnonAuthorisation(
     authKeyAddress: PromiseOrValue<string>,
+    apiFlag: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     anonAuthorise(
+      authoriser: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -120,6 +130,7 @@ export interface AnonAuthoriser extends BaseContract {
 
     generateAnonAuthorisation(
       authKeyAddress: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -128,6 +139,8 @@ export interface AnonAuthoriser extends BaseContract {
 
   estimateGas: {
     anonAuthorise(
+      authoriser: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -136,12 +149,15 @@ export interface AnonAuthoriser extends BaseContract {
 
     generateAnonAuthorisation(
       authKeyAddress: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     anonAuthorise(
+      authoriser: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -150,6 +166,7 @@ export interface AnonAuthoriser extends BaseContract {
 
     generateAnonAuthorisation(
       authKeyAddress: PromiseOrValue<string>,
+      apiFlag: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };

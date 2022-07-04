@@ -11,9 +11,10 @@ describe("Anon Authoriser Tests", () => {
 	// 3. wallet B receives private key, signs their address and attempts authorisation
 	// 4. check that authorisation was successful
 	it("should authenticate a user successfully", async() => {
+		const apiFlag = 1
 		let contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
-		const result =  await client.generateAnonAuthorisation()
+		const result =  await client.generateAnonAuthorisation(apiFlag)
 		expect(result.privateKey).to.be.instanceof(Buffer)
 		expect(result.privateKey).to.have.length.greaterThan(0)
 		// authorise from new address
@@ -24,10 +25,11 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it("fail to authenticate after key has been used", async() => {
+		const apiFlag = 1
 		const contract = await deployContract()
 		
 		const client = makeAnonAuthoriserClient(contract)
-		const result = await client.generateAnonAuthorisation()
+		const result = await client.generateAnonAuthorisation(apiFlag)
 		await client.anonAuthorise(result)
 
 		try {
@@ -39,10 +41,11 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it('should fail to authorise a signature from an invalid key', async() => {
+		const apiFlag = 1
 		const contract = await deployContract()
 
 		const client = makeAnonAuthoriserClient(contract)
-		const result = await client.generateAnonAuthorisation()
+		const result = await client.generateAnonAuthorisation(apiFlag)
 		// generate a new private key and sign with that
 		// this should fail authentication
 		result.privateKey = generateKeyPairAndAddress().privateKey
@@ -55,7 +58,26 @@ describe("Anon Authoriser Tests", () => {
 		}
 	})
 
+	it('should fail to authorise a signature from a different authoriser', async() => {
+		const apiFlag = 1
+		const contract = await deployContract()
+
+		const client = makeAnonAuthoriserClient(contract)
+		const result = await client.generateAnonAuthorisation(apiFlag)
+		// generate a new private key and sign with that
+		// this should fail authentication
+		result.authoriser = ethers.Wallet.createRandom().address
+
+		try {
+			await client.anonAuthorise(result)
+			throw new Error("should have failed")
+		} catch(error: any) {
+			expect(error.message).to.include('Authoriser mismatch')
+		}
+	})
+
 	it('should handle multiple authorisations concurrently', async() => {
+		const apiFlag = 1
 		const contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
 
@@ -63,7 +85,7 @@ describe("Anon Authoriser Tests", () => {
 		const [, signer2, signer3, signer4] = await ethers.getSigners()
 		await Promise.all(
 			[signer2, signer3, signer4].map(async (signer) => {
-				const authResult = await client.generateAnonAuthorisation()
+				const authResult = await client.generateAnonAuthorisation(apiFlag)
 			
 				const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
 				await authReqClient.anonAuthorise(authResult)
