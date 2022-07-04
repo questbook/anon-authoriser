@@ -7,11 +7,13 @@ contract AnonAuthoriser {
         /** address of the user who made the authorisation */
         address authoriser;
         /** 
-        * what this authorisation is for. 
-        * specifying this can prevent a malicious user from misusing an authorisation.
-        * your application should define what each API flag is for
+         * what this authorisation is for. 
+         * specifying this can prevent a malicious user from misusing an authorisation.
+         * your application should define what each API flag is for
+         *
+         * ideally, you should have a unique flag for each authorisation purpose
         */
-        uint8 apiFlag;
+        bytes32 apiFlag;
     }
 
     // map the address of the auth key pair
@@ -22,16 +24,16 @@ contract AnonAuthoriser {
     bytes constant MSG_PREFIX = "\x19Ethereum Signed Message:\n32";
 
     // store the map 
-    function generateAnonAuthorisation(address authKeyAddress, uint8 apiFlag) public {
+    function generateAnonAuthorisation(address authKeyAddress, bytes32 apiFlag) public {
         require(authKeyAddress != address(0), "Invalid public key address");
         require(apiFlag > 0, "API flag must be non-zero");
-        require(pendingAuthorisations[authKeyAddress].apiFlag == 0, "Authorisation already exists");
+        require(pendingAuthorisations[authKeyAddress].apiFlag == bytes32(0), "Authorisation already exists");
 
         pendingAuthorisations[authKeyAddress] = PendingAuthorisation(msg.sender, apiFlag);
     }
 
     /** Authorise something */
-    function anonAuthorise(address authoriser, uint8 apiFlag, uint8 v, bytes32 r, bytes32 s) public {
+    function anonAuthorise(address authoriser, bytes32 apiFlag, uint8 v, bytes32 r, bytes32 s) public {
         // generated the prefixed message to be signed
         // the authorisation request should have signed their own wallet address
         bytes32 msgHash = ethMessageHash(abi.encodePacked(msg.sender));

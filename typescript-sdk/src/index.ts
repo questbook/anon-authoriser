@@ -1,15 +1,18 @@
 import { ec as EC } from 'elliptic'
+import type { BytesLike } from 'ethers'
 import { keccak256 } from 'js-sha3'
 import { computeAddress } from '@ethersproject/transactions'
 import type { AnonAuthoriser } from './types'
 
 type MinAnonAuthoriser = Pick<AnonAuthoriser, 'anonAuthorise' | 'generateAnonAuthorisation' | 'signer'>
 
-type AnonAuthorisationData = {
+type APIFlag = BytesLike
+
+export type AnonAuthorisationData = {
 	/** private key that will be used to sign the authorisation request */
 	privateKey: Buffer
 	/** API flag to determine what the authorisation can be used for */
-	apiFlag: number
+	apiFlag: APIFlag
 	/** address of the user who wants to authorise another user */
 	authoriser: string
 }
@@ -17,7 +20,7 @@ type AnonAuthorisationData = {
 const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 
 	return {
-		async generateAnonAuthorisation(apiFlag: number): Promise<AnonAuthorisationData> {
+		async generateAnonAuthorisation(apiFlag: APIFlag): Promise<AnonAuthorisationData> {
 			const { privateKey, address } = generateKeyPairAndAddress()
 			const interaction1 = await contract.generateAnonAuthorisation(address, apiFlag)
 			await interaction1.wait()

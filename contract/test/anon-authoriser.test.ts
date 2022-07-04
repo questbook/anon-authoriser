@@ -3,6 +3,7 @@ import makeAnonAuthoriserClient, { generateKeyPairAndAddress } from '@questbook/
 import { ethers } from 'hardhat'
 import type { AnonAuthoriser__factory } from '../src/types'
 import { expect } from 'chai'
+import { randomBytes } from 'crypto'
 
 describe("Anon Authoriser Tests", () => {
 	// flow is:
@@ -11,7 +12,7 @@ describe("Anon Authoriser Tests", () => {
 	// 3. wallet B receives private key, signs their address and attempts authorisation
 	// 4. check that authorisation was successful
 	it("should authenticate a user successfully", async() => {
-		const apiFlag = 1
+		const apiFlag = makeApiFlag()
 		let contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
 		const result =  await client.generateAnonAuthorisation(apiFlag)
@@ -25,7 +26,7 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it("fail to authenticate after key has been used", async() => {
-		const apiFlag = 1
+		const apiFlag = makeApiFlag()
 		const contract = await deployContract()
 		
 		const client = makeAnonAuthoriserClient(contract)
@@ -41,7 +42,7 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it('should fail to authorise a signature from an invalid key', async() => {
-		const apiFlag = 1
+		const apiFlag = makeApiFlag()
 		const contract = await deployContract()
 
 		const client = makeAnonAuthoriserClient(contract)
@@ -59,7 +60,7 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it('should fail to authorise a signature from a different authoriser', async() => {
-		const apiFlag = 1
+		const apiFlag = makeApiFlag()
 		const contract = await deployContract()
 
 		const client = makeAnonAuthoriserClient(contract)
@@ -77,7 +78,6 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	it('should handle multiple authorisations concurrently', async() => {
-		const apiFlag = 1
 		const contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
 
@@ -85,6 +85,7 @@ describe("Anon Authoriser Tests", () => {
 		const [, signer2, signer3, signer4] = await ethers.getSigners()
 		await Promise.all(
 			[signer2, signer3, signer4].map(async (signer) => {
+				const apiFlag = makeApiFlag()
 				const authResult = await client.generateAnonAuthorisation(apiFlag)
 			
 				const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
@@ -101,3 +102,5 @@ describe("Anon Authoriser Tests", () => {
 		return contract
 	}
 })
+
+const makeApiFlag = () => randomBytes(32)
