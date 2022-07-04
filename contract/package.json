@@ -1,13 +1,17 @@
 {
-  "name": "@questbook/anon-authoriser",
+  "name": "@questbook/anon-authoriser-contracts",
   "version": "1.0.0",
   "description": "Authorise another wallet to undertake a certain action without knowing their wallet address",
   "main": "index.js",
   "scripts": {
     "test": "NETWORK=hardhat hardhat test",
     "build": "NETWORK=hardhat hardhat compile",
-    "deploy": "hardhat deploy:AnonAuthoriser --network $NETWORK"
+    "deploy": "hardhat deploy:AnonAuthoriser --network $NETWORK",
+    "prepare": "build"
   },
+  "files": [
+    "**/*.sol"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
