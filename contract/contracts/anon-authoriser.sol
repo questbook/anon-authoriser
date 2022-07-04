@@ -7,7 +7,6 @@ contract AnonAuthoriser {
         address authoriser;
     }
 
-    uint64 currentAuthorisationId = 0;
     // map the address of the auth key
     // to the user requested the anon authorisation
     mapping(address => PendingAuthorisation) pendingAuthorisations;
