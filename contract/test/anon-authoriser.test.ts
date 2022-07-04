@@ -14,8 +14,8 @@ describe("Anon Authoriser Tests", () => {
 		let contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
 		const result =  await client.generateAnonAuthorisation()
-		expect(result.authId).to.be.greaterThan(0)
 		expect(result.privateKey).to.be.instanceof(Buffer)
+		expect(result.privateKey).to.have.length.greaterThan(0)
 		// authorise from new address
 		const [, signer2] = await ethers.getSigners()
 
@@ -51,7 +51,7 @@ describe("Anon Authoriser Tests", () => {
 			await client.anonAuthorise(result)
 			throw new Error("should have failed")
 		} catch(error: any) {
-			expect(error.message).to.include('Signature mismatch')
+			expect(error.message).to.include('No such pending authorisation')
 		}
 	})
 
@@ -61,12 +61,14 @@ describe("Anon Authoriser Tests", () => {
 
 		// authorise from new addresses
 		const [, signer2, signer3, signer4] = await ethers.getSigners()
-		for(const signer of [signer2, signer3, signer4]) {
-			const authResult = await client.generateAnonAuthorisation()
+		await Promise.all(
+			[signer2, signer3, signer4].map(async (signer) => {
+				const authResult = await client.generateAnonAuthorisation()
 			
-			const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
-			await authReqClient.anonAuthorise(authResult)
-		}
+				const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
+				await authReqClient.anonAuthorise(authResult)
+			})
+		)
 	})
 
 	async function deployContract() {

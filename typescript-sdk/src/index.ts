@@ -7,7 +7,6 @@ type MinAnonAuthoriser = Pick<AnonAuthoriser, 'anonAuthorise' | 'generateAnonAut
 
 type AnonAuthorisationData = {
 	privateKey: Buffer
-	authId: number
 }
 
 const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
@@ -18,12 +17,12 @@ const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 			const interaction1 = await contract.generateAnonAuthorisation(address)
 			await interaction1.wait()
 	
-			return { privateKey, authId: 1 } // TODO: fetch authId
+			return { privateKey }
 		},
-		async anonAuthorise({ authId, privateKey }: AnonAuthorisationData) {
+		async anonAuthorise({ privateKey }: AnonAuthorisationData) {
 			const senderAddress = await contract.signer.getAddress()
 			const inp = generateInputForAuthorisation(senderAddress, privateKey)
-			await contract.anonAuthorise(authId, inp.v, inp.r, inp.s)
+			await contract.anonAuthorise(inp.v, inp.r, inp.s)
 		}
 	}
 }

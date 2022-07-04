@@ -5,26 +5,22 @@ contract AnonAuthoriser {
     struct PendingAuthorisation { 
         /** address of the user who made the authorisation */
         address authoriser;
-        /** address of the public key used to sign the data */
-        address authKeyAddress;
     }
 
     uint64 currentAuthorisationId = 0;
-    mapping(uint64 => PendingAuthorisation) pendingAuthorisations;
+    // map the address of the auth key
+    // to the user requested the anon authorisation
+    mapping(address => PendingAuthorisation) pendingAuthorisations;
     // each message has this prefixed to it before being signed
     bytes constant MSG_PREFIX = "\x19Ethereum Signed Message:\n32";
 
-    function generateAnonAuthorisation(address authKeyAddress) public returns (uint64) {
-        currentAuthorisationId += 1;
-        pendingAuthorisations[currentAuthorisationId] = PendingAuthorisation(msg.sender, authKeyAddress);
-        return currentAuthorisationId;
+    function generateAnonAuthorisation(address authKeyAddress) public {
+        require(authKeyAddress != address(0), "Invalid public key address");
+        pendingAuthorisations[authKeyAddress] = PendingAuthorisation(msg.sender);
     }
 
     /** Authorise something*/
-    function anonAuthorise(uint64 authId, uint8 v, bytes32 r, bytes32 s) public {
-        PendingAuthorisation memory auth = pendingAuthorisations[authId];
-        require(auth.authKeyAddress != address(0), "No such pending authorisation");
-        
+    function anonAuthorise(uint8 v, bytes32 r, bytes32 s) public {
         bytes32 msgHash = ethMessageHash(abi.encodePacked(msg.sender));
 
         if(v == 0 || v == 1) {
@@ -34,9 +30,11 @@ contract AnonAuthoriser {
         address signerAddr = ecrecover(msgHash, v, r, s);
 
         require(signerAddr != address(0), "Invalid Signature");
-        require(signerAddr == auth.authKeyAddress, "Signature mismatch");
 
-        delete pendingAuthorisations[authId];
+        PendingAuthorisation memory auth = pendingAuthorisations[signerAddr];
+        require(auth.authoriser != address(0), "No such pending authorisation");
+        
+        delete pendingAuthorisations[signerAddr];
     }
 
     /**

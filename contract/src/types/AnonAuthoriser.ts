@@ -25,7 +25,7 @@ import type {
 
 export interface AnonAuthoriserInterface extends utils.Interface {
   functions: {
-    "anonAuthorise(uint64,uint8,bytes32,bytes32)": FunctionFragment;
+    "anonAuthorise(uint8,bytes32,bytes32)": FunctionFragment;
     "generateAnonAuthorisation(address)": FunctionFragment;
   };
 
@@ -36,7 +36,6 @@ export interface AnonAuthoriserInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "anonAuthorise",
     values: [
-      PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
@@ -87,7 +86,6 @@ export interface AnonAuthoriser extends BaseContract {
 
   functions: {
     anonAuthorise(
-      authId: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -101,7 +99,6 @@ export interface AnonAuthoriser extends BaseContract {
   };
 
   anonAuthorise(
-    authId: PromiseOrValue<BigNumberish>,
     v: PromiseOrValue<BigNumberish>,
     r: PromiseOrValue<BytesLike>,
     s: PromiseOrValue<BytesLike>,
@@ -115,7 +112,6 @@ export interface AnonAuthoriser extends BaseContract {
 
   callStatic: {
     anonAuthorise(
-      authId: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -125,14 +121,13 @@ export interface AnonAuthoriser extends BaseContract {
     generateAnonAuthorisation(
       authKeyAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
     anonAuthorise(
-      authId: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -147,7 +142,6 @@ export interface AnonAuthoriser extends BaseContract {
 
   populateTransaction: {
     anonAuthorise(
-      authId: PromiseOrValue<BigNumberish>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
