@@ -25,7 +25,7 @@ import type {
 
 export interface AnonAuthoriserInterface extends utils.Interface {
   functions: {
-    "anonAuthorise(address,bytes32,uint8,bytes32,bytes32)": FunctionFragment;
+    "anonAuthorise(address,bytes32,address,uint8,bytes32,bytes32)": FunctionFragment;
     "generateAnonAuthorisation(address,bytes32)": FunctionFragment;
   };
 
@@ -38,6 +38,7 @@ export interface AnonAuthoriserInterface extends utils.Interface {
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<BytesLike>,
+      PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
       PromiseOrValue<BytesLike>
@@ -90,6 +91,7 @@ export interface AnonAuthoriser extends BaseContract {
     anonAuthorise(
       authoriser: PromiseOrValue<string>,
       apiFlag: PromiseOrValue<BytesLike>,
+      authorisee: PromiseOrValue<string>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -106,6 +108,7 @@ export interface AnonAuthoriser extends BaseContract {
   anonAuthorise(
     authoriser: PromiseOrValue<string>,
     apiFlag: PromiseOrValue<BytesLike>,
+    authorisee: PromiseOrValue<string>,
     v: PromiseOrValue<BigNumberish>,
     r: PromiseOrValue<BytesLike>,
     s: PromiseOrValue<BytesLike>,
@@ -122,6 +125,7 @@ export interface AnonAuthoriser extends BaseContract {
     anonAuthorise(
       authoriser: PromiseOrValue<string>,
       apiFlag: PromiseOrValue<BytesLike>,
+      authorisee: PromiseOrValue<string>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -141,6 +145,7 @@ export interface AnonAuthoriser extends BaseContract {
     anonAuthorise(
       authoriser: PromiseOrValue<string>,
       apiFlag: PromiseOrValue<BytesLike>,
+      authorisee: PromiseOrValue<string>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,
@@ -158,6 +163,7 @@ export interface AnonAuthoriser extends BaseContract {
     anonAuthorise(
       authoriser: PromiseOrValue<string>,
       apiFlag: PromiseOrValue<BytesLike>,
+      authorisee: PromiseOrValue<string>,
       v: PromiseOrValue<BigNumberish>,
       r: PromiseOrValue<BytesLike>,
       s: PromiseOrValue<BytesLike>,

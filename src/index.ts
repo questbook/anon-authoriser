@@ -23,6 +23,10 @@ export type AnonAuthorisationData = {
 const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 
 	return {
+		/**
+		 * Generates a new pending authorisation
+		 * @param apiFlag flag that uniquely identifies the purpose of the authorisation
+		 */
 		async generateAnonAuthorisation(apiFlag: APIFlag): Promise<AnonAuthorisationData> {
 			const { privateKey, address } = generateKeyPairAndAddress()
 			const interaction1 = await contract.generateAnonAuthorisation(address, apiFlag)
@@ -34,10 +38,19 @@ const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 				apiFlag
 			}
 		},
-		async anonAuthorise({ privateKey, authoriser, apiFlag }: AnonAuthorisationData) {
+		/**
+		 * Authorise the contract sender for the given authorisation
+		 * @param param0 the authorisation data
+		 * @param callerAddress the address of the user that will actually make the call to the anon-authoriser contract
+		 */
+		async anonAuthorise(
+			{ privateKey, authoriser, apiFlag }: AnonAuthorisationData,
+			callerAddress?: string
+		) {
 			const senderAddress = await contract.signer.getAddress()
-			const inp = generateInputForAuthorisation(senderAddress, privateKey)
-			await contract.anonAuthorise(authoriser, apiFlag, inp.v, inp.r, inp.s)
+			callerAddress = callerAddress || senderAddress
+			const inp = generateInputForAuthorisation(senderAddress, callerAddress, privateKey)
+			await contract.anonAuthorise(authoriser, apiFlag, callerAddress, inp.v, inp.r, inp.s)
 		}
 	}
 }
@@ -80,12 +93,18 @@ export function generateKeyPairAndAddress() {
  * Sign the sender using the given EC private key.
  * The sender can then use this to authorise a pending anon authorisation.
  *
- * @param senderAddress
+ * @param senderAddress the person who has the private key
+ * @param callerAddress the SC/wallet address that will invoke the anon-authoriser contract
  * @param privateKey
  * @returns
  */
-export function generateInputForAuthorisation(senderAddress: string, privateKey: Buffer | number[] | Uint8Array) {
-	const msgBuffer = generatePrefixedMessage(prefixedHexToBuffer(senderAddress))
+export function generateInputForAuthorisation(senderAddress: string, callerAddress: string, privateKey: Buffer | number[] | Uint8Array) {
+	const msgBuffer = generatePrefixedMessage(
+		Buffer.concat([
+			prefixedHexToBuffer(senderAddress),
+			prefixedHexToBuffer(callerAddress)
+		])
+	)
 	const sig = ec.sign(msgBuffer, Buffer.from(privateKey))
 
 	return {

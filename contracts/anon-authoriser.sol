@@ -32,11 +32,17 @@ contract AnonAuthoriser {
         pendingAuthorisations[authKeyAddress] = PendingAuthorisation(msg.sender, apiFlag);
     }
 
-    /** Authorise something */
-    function anonAuthorise(address authoriser, bytes32 apiFlag, uint8 v, bytes32 r, bytes32 s) public {
+    /** 
+     * Authorise something 
+     * @param authoriser wallet address of the user that created the pending auth
+     * @param apiFlag the api flag that was used to create the pending auth, denotes the purpose of the auth
+     * @param authorisee the wallet address of the user that is being authorised, can be separate from `msg.sender`
+     * the authorisee param exists to enable users to delegate authorisation to another wallet or SC
+     */
+    function anonAuthorise(address authoriser, bytes32 apiFlag, address authorisee, uint8 v, bytes32 r, bytes32 s) public {
         // generated the prefixed message to be signed
         // the authorisation request should have signed their own wallet address
-        bytes32 msgHash = ethMessageHash(abi.encodePacked(msg.sender));
+        bytes32 msgHash = ethMessageHash(abi.encodePacked(authorisee, msg.sender));
         // version in some EC libs can be 0 or 1
         if(v == 0 || v == 1) {
             v = v + 27;
