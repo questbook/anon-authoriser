@@ -1,0 +1,17 @@
+{
+  "celo-alfajores-testnet": {
+    "address": "0x2215f272cE9a8d7800DcfC23eC3d5d284912E197"
+  },
+  "rinkeby": {
+    "address": "0xF93F605142Fb1Efad7Aa58253dDffF67775b4520"
+  },
+  "celo-mainnet": {
+    "address": "0x2d2F79aF6e50490b7C25EB93B7C8c060F4e56A2d"
+  },
+  "findora-testnet": {
+    "address": "0x376cD6a04835Da22F99eeb9f89440697b0caDd84"
+  },
+  "harmony-mainnet": {
+    "address": "0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F"
+  }
+}

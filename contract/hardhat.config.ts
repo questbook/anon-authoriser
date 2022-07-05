@@ -13,7 +13,7 @@ const HARDHAT_CHAIN_ID = 31337
 
 // Ensure that we have all the environment variables we need.
 // Private key is a must for any deployment
-const privateKey = process.env.MNEMONIC!
+const privateKey = process.env.PRIVATE_KEY!
 // If the network you want to deploy to requires an Infura key
 // specify it in the environment variable INFURA_KEY
 const infuraApiKey = process.env.INFURA_API_KEY
@@ -38,6 +38,7 @@ function getChainConfig(network: Chain): NetworkUserConfig | undefined {
       accounts: [privateKey!],
       chainId: chains[network].id,
       url: rpcUrl,
+      gasPrice: 250
     };
   }
 }
