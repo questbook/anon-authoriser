@@ -130,3 +130,4 @@ cache
 artifacts
 
 lib
+src/contract-address-map.json

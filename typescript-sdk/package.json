@@ -1,10 +1,10 @@
 {
-  "name": "@questbook/anon-authoriser-js",
+  "name": "@questbookxyz/anon-authoriser-js",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "cp ../common/contract-address-map.json ./src/contract-address-map.json && tsc",
     "prepare": "npm run build",
     "generate:types": "typechain --target ethers-v5 --out-dir src/types '../contract/artifacts/contracts/anon-authoriser.sol/AnonAuthoriser.json'"
   },

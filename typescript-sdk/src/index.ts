@@ -2,11 +2,14 @@ import { ec as EC } from 'elliptic'
 import type { BytesLike } from 'ethers'
 import { keccak256 } from 'js-sha3'
 import { computeAddress } from '@ethersproject/transactions'
+import CONTRACT_ADDRESS_MAP from './contract-address-map.json'
 import type { AnonAuthoriser } from './types'
 
 type MinAnonAuthoriser = Pick<AnonAuthoriser, 'anonAuthorise' | 'generateAnonAuthorisation' | 'signer'>
 
 type APIFlag = BytesLike
+
+export type Chain = keyof typeof CONTRACT_ADDRESS_MAP
 
 export type AnonAuthorisationData = {
 	/** private key that will be used to sign the authorisation request */
@@ -90,6 +93,25 @@ export function generateInputForAuthorisation(senderAddress: string, privateKey:
 		r: sig.r.toBuffer(),
 		s: sig.s.toBuffer()
 	}
+}
+
+/** Get all chains that anon-authoriser is deployed on */
+export function getAllDeployedChains() {
+	return Object.keys(CONTRACT_ADDRESS_MAP) as Chain[]
+}
+
+/**
+ * Get the address of anon-authoriser contract for the given chain
+ * @param chainName name of the chain, eg. 'rinkeby'
+ * @returns 
+ */
+export function getAnonAuthoriserAddress(chainName: Chain) {
+	const address = CONTRACT_ADDRESS_MAP[chainName]?.address
+	if(!address) {
+		throw new Error(`anon-authoriser not available on "${chainName}"`)
+	}
+
+	return address
 }
 
 function prefixedHexToBuffer(address: string) {
