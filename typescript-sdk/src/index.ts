@@ -1,7 +1,7 @@
+import { computeAddress } from '@ethersproject/transactions'
 import { ec as EC } from 'elliptic'
 import type { BytesLike } from 'ethers'
 import { keccak256 } from 'js-sha3'
-import { computeAddress } from '@ethersproject/transactions'
 import CONTRACT_ADDRESS_MAP from './contract-address-map.json'
 import type { AnonAuthoriser } from './types'
 
@@ -27,7 +27,7 @@ const makeAnonAuthoriserClient = (contract: MinAnonAuthoriser) => {
 			const { privateKey, address } = generateKeyPairAndAddress()
 			const interaction1 = await contract.generateAnonAuthorisation(address, apiFlag)
 			await interaction1.wait()
-	
+
 			return {
 				privateKey,
 				authoriser: await contract.signer.getAddress(),
@@ -47,15 +47,15 @@ const ec = new EC('secp256k1')
 /**
  * Prepares a message to be signed by an EC private key
  * Mimics behaviour of an ETH signature
- * 
- * @param msg 
+ *
+ * @param msg
  * @returns
  */
 export function generatePrefixedMessage(msg: string | Buffer) {
 	return Buffer.from(
 		keccak256(
 			Buffer.concat([
-				Buffer.from(`\x19Ethereum Signed Message:\n32`),
+				Buffer.from('\x19Ethereum Signed Message:\n32'),
 				Buffer.from(keccak256(Buffer.from(msg)), 'hex')
 			])
 		),
@@ -63,7 +63,7 @@ export function generatePrefixedMessage(msg: string | Buffer) {
 	)
 }
 
-/** 
+/**
  * Generates an EC keypair & its ethereum address.
  * Use address to do anon authorisation
  * */
@@ -79,10 +79,10 @@ export function generateKeyPairAndAddress() {
 /**
  * Sign the sender using the given EC private key.
  * The sender can then use this to authorise a pending anon authorisation.
- * 
- * @param senderAddress 
- * @param privateKey 
- * @returns 
+ *
+ * @param senderAddress
+ * @param privateKey
+ * @returns
  */
 export function generateInputForAuthorisation(senderAddress: string, privateKey: Buffer | number[] | Uint8Array) {
 	const msgBuffer = generatePrefixedMessage(prefixedHexToBuffer(senderAddress))
@@ -103,7 +103,7 @@ export function getAllDeployedChains() {
 /**
  * Get the address of anon-authoriser contract for the given chain
  * @param chainName name of the chain, eg. 'rinkeby'
- * @returns 
+ * @returns
  */
 export function getAnonAuthoriserAddress(chainName: Chain) {
 	const address = CONTRACT_ADDRESS_MAP[chainName]?.address
