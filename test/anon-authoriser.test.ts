@@ -1,21 +1,21 @@
-import '@nomiclabs/hardhat-ethers'
-import makeAnonAuthoriserClient, { generateKeyPairAndAddress } from '@questbook/anon-authoriser-js'
-import { ethers } from 'hardhat'
-import type { AnonAuthoriser__factory } from '../src/types'
 import { expect } from 'chai'
 import { randomBytes } from 'crypto'
+import { ethers } from 'hardhat'
+import '@nomiclabs/hardhat-ethers'
+import makeAnonAuthoriserClient, { generateKeyPairAndAddress } from '../src'
+import type { } from '../src/types/hardhat'
 
-describe("Anon Authoriser Tests", () => {
+describe('Anon Authoriser Tests', () => {
 	// flow is:
 	// 1. contract is deployed
 	// 2. wallet A generates new key pair (and subsequently address) and requests anon authorisation
 	// 3. wallet B receives private key, signs their address and attempts authorisation
 	// 4. check that authorisation was successful
-	it("should authenticate a user successfully", async() => {
+	it('should authenticate a user successfully', async() => {
 		const apiFlag = makeApiFlag()
-		let contract = await deployContract()
+		const contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
-		const result =  await client.generateAnonAuthorisation(apiFlag)
+		const result = await client.generateAnonAuthorisation(apiFlag)
 		expect(result.privateKey).to.be.instanceof(Buffer)
 		expect(result.privateKey).to.have.length.greaterThan(0)
 		// authorise from new address
@@ -25,17 +25,17 @@ describe("Anon Authoriser Tests", () => {
 		await client2.anonAuthorise(result)
 	})
 
-	it("fail to authenticate after key has been used", async() => {
+	it('fail to authenticate after key has been used', async() => {
 		const apiFlag = makeApiFlag()
 		const contract = await deployContract()
-		
+
 		const client = makeAnonAuthoriserClient(contract)
 		const result = await client.generateAnonAuthorisation(apiFlag)
 		await client.anonAuthorise(result)
 
 		try {
 			await client.anonAuthorise(result)
-			throw new Error("should have failed")
+			throw new Error('should have failed')
 		} catch(error: any) {
 			expect(error.message).to.include('No such pending authorisation')
 		}
@@ -53,7 +53,7 @@ describe("Anon Authoriser Tests", () => {
 
 		try {
 			await client.anonAuthorise(result)
-			throw new Error("should have failed")
+			throw new Error('should have failed')
 		} catch(error: any) {
 			expect(error.message).to.include('No such pending authorisation')
 		}
@@ -71,7 +71,7 @@ describe("Anon Authoriser Tests", () => {
 
 		try {
 			await client.anonAuthorise(result)
-			throw new Error("should have failed")
+			throw new Error('should have failed')
 		} catch(error: any) {
 			expect(error.message).to.include('Authoriser mismatch')
 		}
@@ -84,10 +84,10 @@ describe("Anon Authoriser Tests", () => {
 		// authorise from new addresses
 		const [, signer2, signer3, signer4] = await ethers.getSigners()
 		await Promise.all(
-			[signer2, signer3, signer4].map(async (signer) => {
+			[signer2, signer3, signer4].map(async(signer) => {
 				const apiFlag = makeApiFlag()
 				const authResult = await client.generateAnonAuthorisation(apiFlag)
-			
+
 				const authReqClient = makeAnonAuthoriserClient(contract.connect(signer))
 				await authReqClient.anonAuthorise(authResult)
 			})
@@ -95,7 +95,7 @@ describe("Anon Authoriser Tests", () => {
 	})
 
 	async function deployContract() {
-		const Factory = await ethers.getContractFactory('AnonAuthoriser') as AnonAuthoriser__factory
+		const Factory = await ethers.getContractFactory('AnonAuthoriser')
 		const contract = await Factory.deploy()
 		await contract.deployed()
 

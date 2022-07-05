@@ -1,5 +1,5 @@
-import { readFile, writeFile } from "fs/promises";
-import CONTRACT_ADDRESS_MAP from '../../common/contract-address-map.json'
+import { readFile, writeFile } from 'fs/promises'
+import CONTRACT_ADDRESS_MAP from '../src/contract-address-map.json'
 
 async function main() {
 	let readme = await readFile('../README.md', { encoding: 'utf-8' })
@@ -11,6 +11,7 @@ async function main() {
 	if(!match) {
 		throw new Error('could not find address list in readme')
 	}
+
 	readme = readme.replace(match[1], addressList)
 	await writeFile('../README.md', readme)
 }

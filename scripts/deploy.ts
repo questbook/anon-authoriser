@@ -5,7 +5,7 @@ import type { AnonAuthoriser__factory } from '../src/types'
 async function main() {
 	console.log(`deploying contract to "${network.name}"`)
 	// We get the contract to deploy
-	const factory = await ethers.getContractFactory("AnonAuthoriser",) as AnonAuthoriser__factory
+	const factory = await ethers.getContractFactory('AnonAuthoriser',) as AnonAuthoriser__factory
 	const contract = await factory.deploy()
 
 	await contract.deployed()
@@ -15,7 +15,7 @@ async function main() {
 }
 
 async function updateContractAddressInJson(address: string) {
-	const filename = '../common/contract-address-map.json'
+	const filename = '.src/contract-address-map.json'
 	let json: any = { }
 	try {
 		const jsonStr = await readFile(filename, { encoding: 'utf-8' })

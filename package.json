@@ -1,34 +1,40 @@
 {
-  "name": "@questbookxyz/anon-authoriser-contracts",
+  "name": "@questbook/anon-authoriser",
   "version": "1.0.0",
   "description": "Authorise another wallet to undertake a certain action without knowing their wallet address",
   "main": "index.js",
   "scripts": {
     "test": "NETWORK=hardhat hardhat test",
-    "build": "NETWORK=hardhat hardhat compile",
+    "build:sol": "NETWORK=hardhat hardhat compile",
+    "build:tsc": "tsc",
+    "prepare": "tsc",
     "deploy": "hardhat run --network $NETWORK scripts/deploy.ts",
     "deploy:all": "ts-node scripts/deploy-all.ts",
-    "prepare": "build",
-    "prepare:readme": "ts-node scripts/prepare-readme.ts"
+    "prepare:readme": "ts-node scripts/prepare-readme.ts",
+    "lint:ts": "eslint ./ --ext .ts",
+    "lint:ts:fix": "yarn lint:ts --fix"
   },
   "files": [
-    "**/*.sol"
+    "artifacts/*",
+    "contracts/*.sol",
+    "lib/*"
   ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@creatoros/eslint-config": "github:CreatorOS/eslint-config",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
-    "@questbook/anon-authoriser-js": "link:../typescript-sdk",
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.1",
+    "@types/elliptic": "^6.4.14",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.0",
     "chai": "^4.3.6",
+    "eslint": "^7.14.0",
     "ethereum-waffle": "^3.4.4",
-    "ethers": "^5.6.9",
     "hardhat": "^2.9.9",
     "secp256k1": "^4.0.3",
     "ts-node": "^10.8.1",
@@ -36,6 +42,8 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "elliptic": "^6.5.4",
+    "ethers": "^5.6.9"
   }
 }

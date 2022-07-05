@@ -36,20 +36,21 @@ so it cannot be used again
 
 ## Setup & Running Tests
 
-1. Clone the repository
-2. Build the typescript SDK
-	- `cd path/to/anon-authoriser/typescript-sdk`
-	- `yarn`
-	- `yarn build`
-3. Move to contract folder & run tests
-	- `cd path/to/anon-authoriser/contract`
-	- `yarn`
-	- `yarn test`
-4. If you make changes to the contract, be sure to generate the latest types:
-	- `yarn build` in the `contract` folder
-	- `yarn generate:types` in the `typescript-sdk` folder
+1. Clone the repository, and `cd` into the repository
+2. Run `yarn` to install all deps
+3. To run tests: `yarn test`
+4. If you make changes to the contract:
+	- be sure to generate the latest types using `yarn build:sol`
+	- lint the typescript using `yarn lint:ts`
 
 ## Using this library
+
+You can include this in your smart contract project and/or your JS project to invoke the contract.
+
+Install using yarn:
+```
+yarn add git+https://github.com/questbook/anon-authoriser
+```
 
 We're live on the following chains:
 
@@ -64,6 +65,10 @@ harmony-mainnet: 0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F
 You can call the contract from your smart contracts or can call them directly from your dApp. 
 
 A good example of the former is our [grants contract](https://github.com/questbook/grants-contracts-upgradeable/blob/main/contracts/WorkspaceRegistry.sol) -- where we use this contract to enable invite links on our app. 
+
+## Example Usage in SC
+
+TODO
 
 ## Deploying the Contracts on your own
 
