@@ -2,7 +2,7 @@
   "name": "@questbook/anon-authoriser",
   "version": "1.0.0",
   "description": "Authorise another wallet to undertake a certain action without knowing their wallet address",
-  "main": "index.js",
+  "main": "lib/index",
   "scripts": {
     "test": "NETWORK=hardhat hardhat test",
     "build:sol": "NETWORK=hardhat hardhat compile",
