@@ -6,8 +6,8 @@
   "scripts": {
     "test": "NETWORK=hardhat hardhat test",
     "build:sol": "NETWORK=hardhat hardhat compile",
-    "build:tsc": "tsc",
-    "prepare": "tsc",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "prepare": "yarn build:tsc",
     "deploy": "hardhat run --network $NETWORK scripts/deploy.ts",
     "deploy:all": "ts-node scripts/deploy-all.ts",
     "prepare:readme": "ts-node scripts/prepare-readme.ts",
