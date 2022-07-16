@@ -1,11 +1,10 @@
 import { readFile, writeFile } from 'fs/promises'
 import { ethers, network } from 'hardhat'
-import type { AnonAuthoriser__factory } from '../src/types'
 
 async function main() {
 	console.log(`deploying contract to "${network.name}"`)
 	// We get the contract to deploy
-	const factory = await ethers.getContractFactory('AnonAuthoriser',) as AnonAuthoriser__factory
+	const factory = await ethers.getContractFactory('AnonAuthoriser')
 	const contract = await factory.deploy()
 
 	await contract.deployed()
