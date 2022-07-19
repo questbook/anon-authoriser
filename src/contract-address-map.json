@@ -13,5 +13,8 @@
   },
   "harmony-mainnet": {
     "address": "0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F"
+  },
+  "polygon-mainnet": {
+    "address": "0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0"
   }
 }
