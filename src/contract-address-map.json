@@ -16,5 +16,8 @@
   },
   "polygon-mainnet": {
     "address": "0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0"
+  },
+  "optimism-kovan": {
+    "address": "0xfEc77DcD17d4b4F435893e8da0A7FC5d77DD4A1C"
   }
 }
