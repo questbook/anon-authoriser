@@ -13,7 +13,7 @@ export type Chain = keyof typeof CONTRACT_ADDRESS_MAP
 
 export type AnonAuthorisationData = {
 	/** private key that will be used to sign the authorisation request */
-	privateKey: Buffer
+	privateKey: Buffer | number[]
 	/** API flag to determine what the authorisation can be used for */
 	apiFlag: APIFlag
 	/** address of the user who wants to authorise another user */
@@ -82,7 +82,7 @@ export function generatePrefixedMessage(msg: string | Buffer) {
  * */
 export function generateKeyPairAndAddress() {
 	const keyPair = ec.genKeyPair()
-	const privateKey = keyPair.getPrivate().toBuffer()
+	const privateKey = keyPair.getPrivate().toArray()
 	const publicKey = keyPair.getPublic('array')
 	const address = computeAddress(publicKey)
 
