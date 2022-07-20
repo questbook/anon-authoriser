@@ -22,5 +22,8 @@
   },
   "optimism-mainnet": {
     "address": "0x2215f272cE9a8d7800DcfC23eC3d5d284912E197"
+  },
+  "aurora-testnet": {
+    "address": "0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F"
   }
 }
