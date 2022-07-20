@@ -28,5 +28,8 @@
   },
   "evmos-testnet": {
     "address": "0xeDb10f503E128e9167a31c612aDeF4E098Da717e"
+  },
+  "moonbase-alpha": {
+    "address": "0xeDb10f503E128e9167a31c612aDeF4E098Da717e"
   }
 }

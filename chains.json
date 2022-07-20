@@ -62,5 +62,9 @@
   "evmos-testnet": {
     "id": 9000,
     "rpcUrl": "https://eth.bd.evmos.dev:8545"
+  },
+  "moonbase-alpha": {
+    "id": 1287,
+    "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
   }
 }
