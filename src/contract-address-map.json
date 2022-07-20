@@ -25,5 +25,8 @@
   },
   "aurora-testnet": {
     "address": "0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F"
+  },
+  "evmos-testnet": {
+    "address": "0xeDb10f503E128e9167a31c612aDeF4E098Da717e"
   }
 }
