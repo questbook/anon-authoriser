@@ -54,5 +54,9 @@
   "rinkeby": {
     "id": 4,
     "rpcUrl": "https://rinkeby.infura.io/v3/{{infura_key}}"
+  },
+  "aurora-testnet": {
+    "id": 1313161555,
+    "rpcUrl": "https://testnet.aurora.dev/"
   }
 }
