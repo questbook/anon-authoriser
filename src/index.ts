@@ -109,8 +109,8 @@ export function generateInputForAuthorisation(senderAddress: string, callerAddre
 
 	return {
 		v: sig.recoveryParam!,
-		r: sig.r.toBuffer(),
-		s: sig.s.toBuffer()
+		r: sig.r.toArray(),
+		s: sig.s.toArray()
 	}
 }
 
