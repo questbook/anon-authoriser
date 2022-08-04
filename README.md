@@ -60,6 +60,8 @@ rinkeby: 0xF93F605142Fb1Efad7Aa58253dDffF67775b4520
 celo-mainnet: 0x2d2F79aF6e50490b7C25EB93B7C8c060F4e56A2d
 findora-testnet: 0x376cD6a04835Da22F99eeb9f89440697b0caDd84
 harmony-mainnet: 0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F
+telos-testnet: 0xe7Ac12DE956A977EE5a60F60291a80be972A805D
+telos-mainnet: 0xff8051d32d7e82A933910AB216ccCf20e720bb03
 ```
 
 You can call the contract from your smart contracts or can call them directly from your dApp. 
