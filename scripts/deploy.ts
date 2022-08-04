@@ -14,7 +14,7 @@ async function main() {
 }
 
 async function updateContractAddressInJson(address: string) {
-	const filename = '.src/contract-address-map.json'
+	const filename = './src/contract-address-map.json'
 	let json: any = { }
 	try {
 		const jsonStr = await readFile(filename, { encoding: 'utf-8' })
