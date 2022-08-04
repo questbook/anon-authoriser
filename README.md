@@ -77,5 +77,5 @@ TODO
 	```
 	PRIVATE_KEY=0x12345
 	```
-3. Run `NETWORK={network} yarn deploy` to deploy the contract to the specific network. `{network}` can be any of the networks specified in `./common/chains.json` folder.
+3. Run `NETWORK={network} yarn deploy` to deploy the contract to the specific network. `{network}` can be any of the networks specified in `./chains.json` file.
 4. To add another chain, submit a PR to our central [chains repository](https://github.com/questbook/chains) -- which will auto-commit the new network to this repository, allowing you to run step 3 with the newly added network
