@@ -16,7 +16,6 @@ describe('Anon Authoriser Tests', () => {
 		const contract = await deployContract()
 		const client = makeAnonAuthoriserClient(contract)
 		const result = await client.generateAnonAuthorisation(apiFlag)
-		expect(result.privateKey).to.be.instanceof(Buffer)
 		expect(result.privateKey).to.have.length.greaterThan(0)
 		// authorise from new address
 		const [, signer2] = await ethers.getSigners()
