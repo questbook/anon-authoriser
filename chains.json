@@ -74,5 +74,9 @@
   "telos-testnet":{
     "id": 41,
     "rpcUrl": "https://testnet.telos.net/evm"
+  },
+  "gnosis-mainnet":{
+    "id": 100,
+    "rpcUrl": "https://rpc.gnosischain.com/"
   }
 }
