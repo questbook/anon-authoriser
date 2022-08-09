@@ -31,5 +31,11 @@
   },
   "moonbase-alpha": {
     "address": "0xeDb10f503E128e9167a31c612aDeF4E098Da717e"
+  },
+  "telos-mainnet": {
+    "address": "0xff8051d32d7e82A933910AB216ccCf20e720bb03"
+  },
+  "telos-testnet": {
+    "address": "0xe7Ac12DE956A977EE5a60F60291a80be972A805D"
   }
 }

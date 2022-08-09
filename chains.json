@@ -66,5 +66,13 @@
   "moonbase-alpha": {
     "id": 1287,
     "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
+  },
+  "telos-mainnet":{
+    "id": 40,
+    "rpcUrl": "https://mainnet.telos.net/evm"
+  },
+  "telos-testnet":{
+    "id": 41,
+    "rpcUrl": "https://testnet.telos.net/evm"
   }
 }

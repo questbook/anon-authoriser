@@ -39,7 +39,7 @@ function getChainConfig(network: Chain): NetworkUserConfig | undefined {
 			accounts: [privateKey!],
 			chainId: chains[network].id,
 			url: rpcUrl,
-			gasPrice: 250
+			// gasPrice: 499809179185
 		}
 	}
 }
