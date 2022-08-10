@@ -17,6 +17,9 @@
   "polygon-mainnet": {
     "address": "0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0"
   },
+  "polygon-mumbai": {
+    "address": "0xA23FAe98239E5a8d5F1D2944725d06F2E79226EB"
+  },
   "optimism-kovan": {
     "address": "0xfEc77DcD17d4b4F435893e8da0A7FC5d77DD4A1C"
   },
