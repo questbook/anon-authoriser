@@ -7,6 +7,8 @@ async function main() {
 	const factory = await ethers.getContractFactory('AnonAuthoriser')
 	const contract = await factory.deploy()
 
+	console.log(`deploying to ${contract.address}`)
+
 	await contract.deployed()
 
 	console.log(`Contract deployed to "${contract.address}" on "${network.name}"`)
