@@ -1,4 +1,8 @@
 {
+  "aurora-testnet": {
+    "id": 1313161555,
+    "rpcUrl": "https://testnet.aurora.dev/"
+  },
   "celo-alfajores-testnet": {
     "id": 44787,
     "rpcUrl": "https://alfajores-forno.celo-testnet.org"
@@ -7,9 +11,21 @@
     "id": 42220,
     "rpcUrl": "https://forno.celo.org"
   },
+  "evmos-testnet": {
+    "id": 9000,
+    "rpcUrl": "https://41d67fdgs4.execute-api.ap-south-1.amazonaws.com/v0/evmos"
+  },
   "findora-testnet": {
     "id": 2153,
     "rpcUrl": "https://ev2awpyss5.execute-api.ap-south-1.amazonaws.com/v0/findora"
+  },
+  "gnosis-mainnet": {
+    "id": 100,
+    "rpcUrl": "https://rpc.gnosischain.com/"
+  },
+  "goerli-testnet": {
+    "id": 5,
+    "rpcUrl": "https://goerli.infura.io/v3/{{infura_key}}"
   },
   "harmony-mainnet": {
     "id": 1666600000,
@@ -30,6 +46,10 @@
   "kovan": {
     "id": 42,
     "rpcUrl": "https://kovan.infura.io/v3/{{infura_key}}"
+  },
+  "moonbase-alpha": {
+    "id": 1287,
+    "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
   },
   "neon-devnet": {
     "id": 245022926,
@@ -55,28 +75,12 @@
     "id": 4,
     "rpcUrl": "https://rinkeby.infura.io/v3/{{infura_key}}"
   },
-  "aurora-testnet": {
-    "id": 1313161555,
-    "rpcUrl": "https://testnet.aurora.dev/"
-  },
-  "evmos-testnet": {
-    "id": 9000,
-    "rpcUrl": "https://eth.bd.evmos.dev:8545"
-  },
-  "moonbase-alpha": {
-    "id": 1287,
-    "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
-  },
-  "telos-mainnet":{
+  "telos-mainnet": {
     "id": 40,
     "rpcUrl": "https://mainnet.telos.net/evm"
   },
-  "telos-testnet":{
+  "telos-testnet": {
     "id": 41,
     "rpcUrl": "https://testnet.telos.net/evm"
-  },
-  "gnosis-mainnet":{
-    "id": 100,
-    "rpcUrl": "https://rpc.gnosischain.com/"
   }
 }

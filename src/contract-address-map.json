@@ -43,5 +43,8 @@
   },
   "gnosis-mainnet": {
     "address": "0x4E6fB8047a687BF34cd8B4Ec5b96702f600b8c73"
+  },
+  "goerli-testnet": {
+    "address": "0xeDb10f503E128e9167a31c612aDeF4E098Da717e"
   }
 }
