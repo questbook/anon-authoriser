@@ -17,6 +17,9 @@
   "polygon-mainnet": {
     "address": "0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0"
   },
+  "polygon-mumbai": {
+    "address": "0xA23FAe98239E5a8d5F1D2944725d06F2E79226EB"
+  },
   "optimism-kovan": {
     "address": "0xfEc77DcD17d4b4F435893e8da0A7FC5d77DD4A1C"
   },
@@ -39,6 +42,6 @@
     "address": "0xe7Ac12DE956A977EE5a60F60291a80be972A805D"
   },
   "gnosis-mainnet": {
-    "address": "0x3272A16F801fa8a59882e4FB3C4738576e988462"
+    "address": "0x4E6fB8047a687BF34cd8B4Ec5b96702f600b8c73"
   }
 }

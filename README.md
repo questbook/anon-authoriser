@@ -56,12 +56,21 @@ We're live on the following chains:
 
 ```
 celo-alfajores-testnet: 0x2215f272cE9a8d7800DcfC23eC3d5d284912E197
-rinkeby: 0xF93F605142Fb1Efad7Aa58253dDffF67775b4520
+rinkeby: 0xDf6643bef01F1627aC050149DAEde8Be3Eff29D2
 celo-mainnet: 0x2d2F79aF6e50490b7C25EB93B7C8c060F4e56A2d
 findora-testnet: 0x376cD6a04835Da22F99eeb9f89440697b0caDd84
 harmony-mainnet: 0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F
-telos-testnet: 0xe7Ac12DE956A977EE5a60F60291a80be972A805D
+polygon-mainnet: 0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0
+polygon-mumbai: 0xA23FAe98239E5a8d5F1D2944725d06F2E79226EB
+optimism-kovan: 0xfEc77DcD17d4b4F435893e8da0A7FC5d77DD4A1C
+optimism-mainnet: 0x2215f272cE9a8d7800DcfC23eC3d5d284912E197
+aurora-testnet: 0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F
+evmos-testnet: 0xeDb10f503E128e9167a31c612aDeF4E098Da717e
+moonbase-alpha: 0xeDb10f503E128e9167a31c612aDeF4E098Da717e
 telos-mainnet: 0xff8051d32d7e82A933910AB216ccCf20e720bb03
+telos-testnet: 0xe7Ac12DE956A977EE5a60F60291a80be972A805D
+gnosis-mainnet: 0x4E6fB8047a687BF34cd8B4Ec5b96702f600b8c73
+goerli-testnet: 0xeDb10f503E128e9167a31c612aDeF4E098Da717e
 ```
 
 You can call the contract from your smart contracts or can call them directly from your dApp. 
