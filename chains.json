@@ -51,6 +51,14 @@
     "id": 1287,
     "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
   },
+  "metis-mainnet": {
+    "id": 1088,
+    "rpcUrl": "https://andromeda.metis.io/?owner=1088"
+  },
+  "metis-testnet": {
+    "id": 588,
+    "rpcUrl": "https://stardust.metis.io/?owner=588"
+  },
   "neon-devnet": {
     "id": 245022926,
     "rpcUrl": "http://neon-devnet-rpc.questbook.app:9090/solana"
