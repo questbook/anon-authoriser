@@ -49,5 +49,8 @@
   },
   "metis-testnet": {
     "address": "0x2b68c598310b035f3943a8eDaEb323683D1d8C8d"
+  },
+  "metis-mainnet": {
+    "address": "0xb103949d15a1E654A4b0cAA7Ce24c8ba40494363"
   }
 }
