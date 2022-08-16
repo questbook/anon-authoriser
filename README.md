@@ -71,7 +71,7 @@ telos-mainnet: 0xff8051d32d7e82A933910AB216ccCf20e720bb03
 telos-testnet: 0xe7Ac12DE956A977EE5a60F60291a80be972A805D
 gnosis-mainnet: 0x0b30fbF81BC8fBf4a2B0c2AC758752CC0A735D2F
 goerli-testnet: 0xeDb10f503E128e9167a31c612aDeF4E098Da717e
-metis-testnet: 0x37d2df191899C715fE840671C6240C4Be05aF6B3
+metis-testnet: 0x2b68c598310b035f3943a8eDaEb323683D1d8C8d
 ```
 
 You can call the contract from your smart contracts or can call them directly from your dApp. 
