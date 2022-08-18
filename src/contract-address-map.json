@@ -14,6 +14,9 @@
   "harmony-mainnet": {
     "address": "0xF39E0AA8cA215D41dF7c9AeB3aBa76FfdAd0951F"
   },
+  "harmony-testnet": {
+    "address": "0xfailure"
+  },
   "polygon-mainnet": {
     "address": "0x0E50F1dbCF5274a43Fa7ddcBB564bEE9FaF745d0"
   },
@@ -52,5 +55,17 @@
   },
   "metis-mainnet": {
     "address": "0xb103949d15a1E654A4b0cAA7Ce24c8ba40494363"
+  },
+  "klaytn-mainnet": {
+    "address": "0xfailure"
+  },
+  "klaytn-testnet": {
+    "address": "0xDE5DaE7a56972589f6c1D80cf3b2eE9aAa8303cF"
+  },
+  "kovan": {
+    "address": "0x3b40F3C11936c5559428384e1441beA0D0683258"
+  },
+  "neon-devnet": {
+    "address": "0xfailure"
   }
 }
