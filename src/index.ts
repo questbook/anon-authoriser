@@ -2,8 +2,8 @@ import { computeAddress } from '@ethersproject/transactions'
 import { ec as EC } from 'elliptic'
 import type { BytesLike } from 'ethers'
 import { keccak256 } from 'js-sha3'
+import type { AnonAuthoriser } from './types/AnonAuthoriser'
 import CONTRACT_ADDRESS_MAP from './contract-address-map.json'
-import type { AnonAuthoriser } from './types'
 
 type MinAnonAuthoriser = Pick<AnonAuthoriser, 'anonAuthorise' | 'generateAnonAuthorisation' | 'signer'>
 
