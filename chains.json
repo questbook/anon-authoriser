@@ -1,71 +1,11 @@
 {
-  "aurora-testnet": {
-    "id": 1313161555,
-    "rpcUrl": "https://testnet.aurora.dev/"
-  },
-  "celo-alfajores-testnet": {
-    "id": 44787,
-    "rpcUrl": "https://alfajores-forno.celo-testnet.org"
-  },
   "celo-mainnet": {
     "id": 42220,
     "rpcUrl": "https://forno.celo.org"
   },
-  "evmos-testnet": {
-    "id": 9000,
-    "rpcUrl": "https://41d67fdgs4.execute-api.ap-south-1.amazonaws.com/v0/evmos"
-  },
-  "findora-testnet": {
-    "id": 2153,
-    "rpcUrl": "https://ev2awpyss5.execute-api.ap-south-1.amazonaws.com/v0/findora"
-  },
-  "gnosis-mainnet": {
-    "id": 100,
-    "rpcUrl": "https://rpc.gnosischain.com/"
-  },
   "goerli-testnet": {
     "id": 5,
     "rpcUrl": "https://goerli.infura.io/v3/{{infura_key}}"
-  },
-  "harmony-mainnet": {
-    "id": 1666600000,
-    "rpcUrl": "https://api.harmony.one"
-  },
-  "harmony-testnet": {
-    "id": 1666700000,
-    "rpcUrl": "https://api.s0.pops.one"
-  },
-  "klaytn-mainnet": {
-    "id": 8217,
-    "rpcUrl": "https://public-node-api.klaytnapi.com/v1/cypress"
-  },
-  "klaytn-testnet": {
-    "id": 1001,
-    "rpcUrl": "https://api.baobab.klaytn.net:8651"
-  },
-  "kovan": {
-    "id": 42,
-    "rpcUrl": "https://kovan.infura.io/v3/{{infura_key}}"
-  },
-  "metis-mainnet": {
-    "id": 1088,
-    "rpcUrl": "https://andromeda.metis.io/?owner=1088"
-  },
-  "metis-testnet": {
-    "id": 588,
-    "rpcUrl": "https://stardust.metis.io/?owner=588"
-  },
-  "moonbase-alpha": {
-    "id": 1287,
-    "rpcUrl": "https://rpc.api.moonbase.moonbeam.network"
-  },
-  "neon-devnet": {
-    "id": 245022926,
-    "rpcUrl": "http://neon-devnet-rpc.questbook.app:9090/solana"
-  },
-  "optimism-kovan": {
-    "id": 69,
-    "rpcUrl": "https://optimism-kovan.infura.io/v3/{{infura_key}}"
   },
   "optimism-mainnet": {
     "id": 10,
@@ -74,21 +14,5 @@
   "polygon-mainnet": {
     "id": 137,
     "rpcUrl": "https://polygon-mainnet.infura.io/v3/{{infura_key}}"
-  },
-  "polygon-mumbai": {
-    "id": 80001,
-    "rpcUrl": "https://polygon-mumbai.infura.io/v3/{{infura_key}}"
-  },
-  "rinkeby": {
-    "id": 4,
-    "rpcUrl": "https://rinkeby.infura.io/v3/{{infura_key}}"
-  },
-  "telos-mainnet": {
-    "id": 40,
-    "rpcUrl": "https://mainnet.telos.net/evm"
-  },
-  "telos-testnet": {
-    "id": 41,
-    "rpcUrl": "https://testnet.telos.net/evm"
   }
 }
